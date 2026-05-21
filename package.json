@@ -1,0 +1,21 @@
+{
+  "name": "trabajopracticotp2-cespedes-aloisio-hermann-chipana",
+  "version": "1.0.0",
+  "description": "Trabajo practico para Taller de programacion 2 - Cristian Romani Cespedes | Alejandro Aloisio | Eric Nicolas Hermann | Julio Chipana",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana/issues"
+  },
+  "homepage": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana#readme"
+}
