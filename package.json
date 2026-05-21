@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana/issues"
   },
-  "homepage": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana#readme"
+  "homepage": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "sequelize": "^6.37.8"
+  }
 }
