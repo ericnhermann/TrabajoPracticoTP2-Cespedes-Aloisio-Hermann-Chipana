@@ -4,7 +4,8 @@
   "description": "Trabajo practico para Taller de programacion 2 - Cristian Romani Cespedes | Alejandro Aloisio | Eric Nicolas Hermann | Julio Chipana",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/ericnhermann/TrabajoPracticoTP2-Cespedes-Aloisio-Hermann-Chipana/issues"
   },
@@ -22,5 +23,8 @@
     "express": "^5.2.1",
     "mysql2": "^3.22.3",
     "sequelize": "^6.37.8"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
