@@ -1,0 +1,1 @@
+//configuramos sequelize para conectarnos a la base de datos
