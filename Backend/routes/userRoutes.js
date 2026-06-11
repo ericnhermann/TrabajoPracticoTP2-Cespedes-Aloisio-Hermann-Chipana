@@ -1,19 +1,19 @@
 //Importamos las dependencias necesarias
-import { Router } from "express";
-import userController from "../controllers/userController.js";
+import Router from "express";
+import userController from "../containers/UserContainer.js";
 
 //por el momento no vamos a implementar la autenticacion, pero lo dejamos para mas adelante
-import autenticar from "../middleware/autenticar.js";
+//import autenticar from "../middleware/autenticar.js";
 
 //Creamos una instancia del router de express
-const userRouter = Router();
+const userRoutes = Router();
 
 //Definimos las rutas para los usuarios
-userRouter.get('/users', autenticar, userController.obtenerTodosLosUsuarios);
-userRouter.get('/users/:id', autenticar, userController.obtenerUsuarioPorId);
-userRouter.post('/users', userController.crearUsuario);
-userRouter.put('/users/:id', autenticar, userController.actualizarUsuario);
-userRouter.delete('/users/:id', autenticar, userController.eliminarUsuario);
+userRoutes.get('/users', userController.obtenerTodosLosUsuarios);
+userRoutes.get('/users/:id', userController.obtenerUsuarioPorId);
+userRoutes.post('/users', userController.crearUsuario);
+userRoutes.put('/users/:id', userController.actualizarUsuario);
+userRoutes.delete('/users/:id', userController.eliminarUsuario);
 
 //Exportamos el router para poder usarlo en el index.js
-export default userRouter;
+export default userRoutes;
