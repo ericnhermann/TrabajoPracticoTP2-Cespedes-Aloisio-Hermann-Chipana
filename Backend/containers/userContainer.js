@@ -1,5 +1,6 @@
 import UserController from "../controllers/UserController.js";
-import {User} from "../Models/index.js";
+//Importamos el modelo de usuario
+import User from "../Models/index.js";
 import UserService from "../services/UserService.js";
 
 //Creamos una instancia del servicio de usuario (que se llama userService), pasandole el modolo de usuario (que se llama User)
