@@ -1,17 +1,19 @@
 //Importamos el modelo de sequelize
-import {DataTipes, Model} from 'sequelize';
+import {DataTypes, Model} from 'sequelize';
 //Importamos la conexion a la base de datos
-import sequelize from '../conecction/sequealize.js';
+import sequelize from '../conecction/sequelize.js';
 
 
 //Lo podemos dejar para mas adelante la imcripcion de usuarios
 //import bcrypt from 'bcrypt';
 
+class User extends Model{}
+
 //Definimos el modelo de usuario
 User.init(
     {
         nombre: {
-            type: DataTipes.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false,
             validate:{
                 len: [3, 50],
@@ -20,7 +22,7 @@ User.init(
         },
 
         apellido: {
-            type: DataTipes.STRING(50),
+            type: DataTypes.STRING(50),
             allowNull: false,
             validate:{
                 len: [3, 50],
@@ -29,7 +31,7 @@ User.init(
 
         },
         email: {
-            type: DataTipes.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false,
             unique: true,
             validate:{
@@ -38,7 +40,7 @@ User.init(
         },
 
         password:{
-            type: DataTipes.STRING(100),
+            type: DataTypes.STRING(100),
             allowNull: false,
         },
     },
