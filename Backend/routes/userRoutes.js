@@ -9,6 +9,7 @@ import userController from "../containers/UserContainer.js";
 const userRoutes = Router();
 
 //Definimos las rutas para los usuarios
+userRoutes.post('/login', userController.login)
 userRoutes.get('/', userController.obtenerTodosLosUsuarios);
 userRoutes.get('/:id', userController.obtenerUsuarioPorId);
 userRoutes.post('/', userController.crearUsuario);

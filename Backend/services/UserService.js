@@ -42,6 +42,29 @@ class UserService {
         //podemos retornar el usuario eliminado para confirmar que se elimino correctamente
         return usuario;
     }
+
+    login = async ({ email, password }) => {
+        const user = await this.user.findOne({
+            where: { email },
+            attributes: ["id", "name", "email", "password", "roleId"],
+        });
+        if (!user) throw new Error("user not found");
+        const validatePassword = await this.user.validatePassword(password, user.password);
+        console.log(`🚀 ~ UserService ~ validatePassword:`, validatePassword)
+        if (!validatePassword) throw new Error("invalid password");
+        return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            roleId: user.roleId,
+        };
+    };
+
+
+
+
+
+
 }
 
 
