@@ -1,7 +1,7 @@
 //Importamos el modelo de sequelize
 import {DataTypes, Model} from 'sequelize';
 //Importamos la conexion a la base de datos
-import sequelize from '../conecction/sequelize.js';
+import sequelize from '../connection/sequelize.js';
 
 
 //Lo podemos dejar para mas adelante la imcripcion de usuarios

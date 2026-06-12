@@ -9,11 +9,11 @@ import userController from "../containers/UserContainer.js";
 const userRoutes = Router();
 
 //Definimos las rutas para los usuarios
-userRoutes.get('/users', userController.obtenerTodosLosUsuarios);
-userRoutes.get('/users/:id', userController.obtenerUsuarioPorId);
-userRoutes.post('/users', userController.crearUsuario);
-userRoutes.put('/users/:id', userController.actualizarUsuario);
-userRoutes.delete('/users/:id', userController.eliminarUsuario);
+userRoutes.get('/', userController.obtenerTodosLosUsuarios);
+userRoutes.get('/:id', userController.obtenerUsuarioPorId);
+userRoutes.post('/', userController.crearUsuario);
+userRoutes.put('/:id', userController.actualizarUsuario);
+userRoutes.delete('/:id', userController.eliminarUsuario);
 
 //Exportamos el router para poder usarlo en el index.js
 export default userRoutes;
