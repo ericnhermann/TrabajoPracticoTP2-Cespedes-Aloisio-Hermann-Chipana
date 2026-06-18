@@ -1,3 +1,4 @@
+//Este es el index.js principal
 import express from 'express';
 import router from './routes/router.js';
 import sequelize from './connection/sequelize.js';
@@ -10,7 +11,7 @@ app.use(express.urlencoded({ extended: true })); //Preguntar sobre esto al profe
 
 app.use(router);
 
-await sequelize.sync();
+await sequelize.sync({alter: false});
 
 
 app.listen(3000, () => {

@@ -29,7 +29,7 @@ class UserService {
             throw new Error('Usuario no encontrado');
         }
         //actualizamos los campos del usuario
-        await usuario.update({ name, apellido, email, password });
+        await usuario.update({nombre, apellido, email, password });
         return usuario;
     }
 
