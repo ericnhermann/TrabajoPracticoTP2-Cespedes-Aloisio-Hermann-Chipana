@@ -43,27 +43,19 @@ class UserService {
         return usuario;
     }
 
-    login = async ({ email, password }) => {
+    login = async ({email, password }) => {
         const user = await this.user.findOne({
             where: { email },
-            attributes: ["id", "name", "email", "password", "roleId"],
+            attributes: ["id", "nombre", "email", "password"],
         });
-        if (!user) throw new Error("user not found");
-        const validatePassword = await this.user.validatePassword(password, user.password);
-        console.log(`🚀 ~ UserService ~ validatePassword:`, validatePassword)
-        if (!validatePassword) throw new Error("invalid password");
-        return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            roleId: user.roleId,
-        };
+        if (!user) {
+            throw new Error("Usuario no encontrado");
+        }
+        if (user.password !== password) {
+            throw new Error("Contraseña incorrecta");
+        }
+        return user;
     };
-
-
-
-
-
 
 }
 

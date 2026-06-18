@@ -6,6 +6,7 @@ import sequelize from './connection/sequelize.js';
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); //Preguntar sobre esto al profe
 
 app.use(router);
 
