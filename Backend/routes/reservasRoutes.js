@@ -1,6 +1,12 @@
 import { Router } from "express";
+import reservaController from "../containers/reservaContainer.js"
 
+//instanciamos
 const reservasRouter = Router()
+
+//Ruta para un controller de reserva mas cara
+reservasRouter.get("/max" , reservaController.reservaMasCara)
+
 
 reservasRouter.get("/", (req, res) => {
     res.status(200).send("get all reservas /")

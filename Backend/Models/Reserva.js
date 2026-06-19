@@ -39,10 +39,10 @@ Reserva.init(
                 isDecimal: true
             },
         },
-        userId: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-        },
+        // userId: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false,
+        // },
                 
     },
     //Configuracion del modelo 
