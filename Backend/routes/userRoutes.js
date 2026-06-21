@@ -1,20 +1,18 @@
-//Importamos las dependencias necesarias
 import Router from "express";
-import userController from "../containers/UserContainer.js";
+import userController from "../containers/userContainer.js";
+import autenticar from "../midlewares/autenticar.js";
 
-//por el momento no vamos a implementar la autenticacion, pero lo dejamos para mas adelante
-//import autenticar from "../middleware/autenticar.js";
-
-//Creamos una instancia del router de express
 const userRoutes = Router();
 
-//Definimos las rutas para los usuarios
-userRoutes.post('/login', userController.login)
-userRoutes.get('/', userController.obtenerTodosLosUsuarios);
-userRoutes.get('/:id', userController.obtenerUsuarioPorId);
-userRoutes.post('/', userController.crearUsuario);
-userRoutes.put('/:id', userController.actualizarUsuario);
-userRoutes.delete('/:id', userController.eliminarUsuario);
+// Públicas
+userRoutes.post("/login", userController.login);
+userRoutes.post("/", userController.crearUsuario);
 
-//Exportamos el router para poder usarlo en el index.js
+// Protegidas (JWT en cookie o header Authorization)
+userRoutes.get("/me", autenticar, userController.me);
+userRoutes.get("/", autenticar, userController.obtenerTodosLosUsuarios);
+userRoutes.get("/:id", autenticar, userController.obtenerUsuarioPorId);
+userRoutes.put("/:id", autenticar, userController.actualizarUsuario);
+userRoutes.delete("/:id", autenticar, userController.eliminarUsuario);
+
 export default userRoutes;

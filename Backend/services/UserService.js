@@ -1,52 +1,76 @@
+import { generateToken, verifyToken } from "../utils/jwt.js";
+
 class UserService {
-    constructor(user) {
+    constructor(user, role) {
         this.user = user;
+        this.role = role;
+        this.roleInclude = {
+            model: role,
+            attributes: ["id", "name"],
+        };
+    }
+
+    #sinPassword(usuario) {
+        const data = usuario.toJSON ? usuario.toJSON() : usuario;
+        const { password, ...resto } = data;
+        return resto;
     }
 
     obtenerTodosLosUsuarios = async () => {
         const usuarios = await this.user.findAll({
-            //esto es para mostrar solo algunos campos de la tabla, en este caso el id, nombre y email
-            attributes: ['id', 'nombre', 'email'],
+            attributes: ["id", "nombre", "apellido", "email", "roleId"],
+            include: [this.roleInclude],
         });
         return usuarios;
     };
 
     obtenerUsuarioPorId = async (id) => {
         const usuario = await this.user.findByPk(id, {
-            attributes: ['id', 'nombre', 'email'],
+            attributes: ["id", "nombre", "apellido", "email", "roleId"],
+            include: [this.roleInclude],
         });
         return usuario;
     };
 
-    crearUsuario = async (nombre, apellido, email, password) => {
-        const nuevoUsuario = await this.user.create({ nombre, apellido, email, password });
-        return nuevoUsuario;
-    }
+    crearUsuario = async (nombre, apellido, email, password, roleId = 2) => {
+        const nuevoUsuario = await this.user.create({
+            nombre,
+            apellido,
+            email,
+            password,
+            roleId,
+        });
+        return this.#sinPassword(nuevoUsuario);
+    };
 
-    actualizarUsuario = async (id, nombre, apellido, email, password) => {
+    actualizarUsuario = async (id, nombre, apellido, email, password, roleId) => {
         const usuario = await this.user.findByPk(id);
         if (!usuario) {
-            throw new Error('Usuario no encontrado');
+            throw new Error("Usuario no encontrado");
         }
-        //actualizamos los campos del usuario
-        await usuario.update({nombre, apellido, email, password });
-        return usuario;
-    }
+
+        const datos = { nombre, apellido, email };
+        if (password) datos.password = password;
+        if (roleId !== undefined) datos.roleId = roleId;
+
+        await usuario.update(datos);
+        return this.obtenerUsuarioPorId(id);
+    };
 
     eliminarUsuario = async (id) => {
         const usuario = await this.user.findByPk(id);
         if (!usuario) {
-            throw new Error('Usuario no encontrado');
+            throw new Error("Usuario no encontrado");
         }
         await usuario.destroy();
-        //podemos retornar el usuario eliminado para confirmar que se elimino correctamente
-        return usuario;
-    }
+        return this.#sinPassword(usuario);
+    };
 
-    login = async ({email, password }) => {
+    login = async ({ email, password }) => {
         const user = await this.user.findOne({
             where: { email },
-            attributes: ["id", "nombre", "email", "password"],
+            attributes: ["id", "nombre", "apellido", "email", "password", "roleId"],
+            include: [this.roleInclude],
         });
         if (!user) {
             throw new Error("Usuario no encontrado");
@@ -54,12 +78,25 @@ class UserService {
         if (user.password !== password) {
             throw new Error("Contraseña incorrecta");
         }
-        return user;
+
+        const payload = {
+            id: user.id,
+            nombre: user.nombre,
+            roleId: user.roleId,
+        };
+
+        const token = generateToken(payload);
+        return { token, id: user.id };
     };
 
+    me = async (token) => {
+        const payload = verifyToken(token);
+        const usuario = await this.obtenerUsuarioPorId(payload.id);
+        if (!usuario) {
+            throw new Error("Usuario no encontrado");
+        }
+        return usuario;
+    };
 }
-
-
-
 
 export default UserService;

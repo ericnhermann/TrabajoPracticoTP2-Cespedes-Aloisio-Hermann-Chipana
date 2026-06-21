@@ -1,11 +1,11 @@
-class ReservaController{
-    constructor(reserva){
-        this.reserva = reserva;
+class ReservaController {
+    constructor(reservaService) {
+        this.reservaService = reservaService;
     }
 
-    reservaMasCara = async(req, res) => {
+    reservaMasCara = async (req, res) => {
         try {
-            const resultado = await this.reserva.reservaMasCara();
+            const resultado = await this.reservaService.reservaMasCara();
             res.status(200).json(resultado)
         } catch (error) {
             res.status(400).json({ error: error.message})

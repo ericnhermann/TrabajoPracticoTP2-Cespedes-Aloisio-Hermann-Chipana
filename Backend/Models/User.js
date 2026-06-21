@@ -43,6 +43,12 @@ User.init(
             type: DataTypes.STRING(100),
             allowNull: false,
         },
+
+        roleId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            defaultValue: 2,
+        },
     },
     //Configuracion del modelo
     {

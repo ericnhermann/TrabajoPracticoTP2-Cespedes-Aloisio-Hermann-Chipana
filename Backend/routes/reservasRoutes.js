@@ -1,11 +1,10 @@
 import { Router } from "express";
-import reservaController from "../containers/reservaContainer.js"
+import reservaController from "../containers/reservaContainer.js";
+import autenticar from "../midlewares/autenticar.js";
 
-//instanciamos
-const reservasRouter = Router()
+const reservasRouter = Router();
 
-//Ruta para un controller de reserva mas cara
-reservasRouter.get("/max" , reservaController.reservaMasCara)
+reservasRouter.get("/max", autenticar, reservaController.reservaMasCara);
 
 
 reservasRouter.get("/", (req, res) => {

@@ -1,15 +1,21 @@
 import User from "./User.js";
+import Role from "./Role.js";
 import Reserva from "./Reserva.js";
 
-User.hasMany(Reserva,{
-    foreignKey: "userId",
+Role.hasMany(User, {
+  foreignKey: "roleId",
 });
 
-Reserva.belongsTo(User,{
-    foreignKey: "userId",
+User.belongsTo(Role, {
+  foreignKey: "roleId",
 });
 
-export {User, Reserva}
+User.hasMany(Reserva, {
+  foreignKey: "userId",
+});
 
+Reserva.belongsTo(User, {
+  foreignKey: "userId",
+});
 
-
+export { User, Role, Reserva };

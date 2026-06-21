@@ -28,8 +28,14 @@ class UserController{
 
     crearUsuario = async (req, res) => {
         try {
-            const { nombre, apellido, email, password } = req.body;
-            const nuevoUsuario = await this.userService.crearUsuario(nombre, apellido, email, password);
+            const { nombre, apellido, email, password, roleId } = req.body;
+            const nuevoUsuario = await this.userService.crearUsuario(
+                nombre,
+                apellido,
+                email,
+                password,
+                roleId
+            );
             res.status(201).json(nuevoUsuario);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -39,8 +45,15 @@ class UserController{
     actualizarUsuario = async (req, res) => {
         try {
             const { id } = req.params;
-            const { nombre, apellido, email, password } = req.body;
-            const usuarioActualizado = await this.userService.actualizarUsuario(id, nombre, apellido, email, password);
+            const { nombre, apellido, email, password, roleId } = req.body;
+            const usuarioActualizado = await this.userService.actualizarUsuario(
+                id,
+                nombre,
+                apellido,
+                email,
+                password,
+                roleId
+            );
             res.json(usuarioActualizado);
         } catch (error) {
             res.status(400).json({ error: error.message });
@@ -60,20 +73,24 @@ class UserController{
     login = async (req, res) => {
         try {
             const { email, password } = req.body;
-            const user = await this.userService.login({ email, password });
-            res.status(200).send({ success: true, message: user });
+            const { token, id } = await this.userService.login({ email, password });
+            res.cookie("payload", token, { httpOnly: true, sameSite: "lax" });
+            res.status(200).send({ success: true, message: id });
         } catch (error) {
             res.status(400).send({ success: false, message: error.message });
         }
     };
 
+    me = async (req, res) => {
+        try {
+            const token = req.cookies?.payload || req.headers.authorization?.replace("Bearer ", "");
+            const usuario = await this.userService.me(token);
+            res.status(200).send({ success: true, message: usuario });
+        } catch (error) {
+            res.status(401).send({ success: false, message: error.message });
+        }
+    };
+
 }
-
-
-
-
-//Login
-
-
 
 export default UserController;
