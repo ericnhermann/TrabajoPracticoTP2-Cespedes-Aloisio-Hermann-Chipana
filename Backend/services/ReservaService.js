@@ -6,10 +6,16 @@ class ReservaService {
 
     //creamos el metodo para obtener la reserva mas cara 
     reservaMasCara = async () => {
-        return await this.reserva.findOne({
+        const reserva = await this.reserva.findOne({
             order: [["precio", "DESC"]],
             raw: true,
         });
+
+        if (!reserva) {
+            throw new Error("No hay reservas registradas");
+        }
+
+        return reserva;
     };
 }
 

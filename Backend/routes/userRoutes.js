@@ -1,6 +1,7 @@
 import Router from "express";
 import userController from "../containers/userContainer.js";
 import autenticar from "../midlewares/autenticar.js";
+import esAdmin from "../midlewares/esAdmin.js";
 
 const userRoutes = Router();
 
@@ -8,11 +9,13 @@ const userRoutes = Router();
 userRoutes.post("/login", userController.login);
 userRoutes.post("/", userController.crearUsuario);
 
-// Protegidas (JWT en cookie o header Authorization)
+// Cualquier usuario autenticado
 userRoutes.get("/me", autenticar, userController.me);
-userRoutes.get("/", autenticar, userController.obtenerTodosLosUsuarios);
-userRoutes.get("/:id", autenticar, userController.obtenerUsuarioPorId);
-userRoutes.put("/:id", autenticar, userController.actualizarUsuario);
-userRoutes.delete("/:id", autenticar, userController.eliminarUsuario);
+
+// Solo admin
+userRoutes.get("/", autenticar, esAdmin, userController.obtenerTodosLosUsuarios);
+userRoutes.get("/:id", autenticar, esAdmin, userController.obtenerUsuarioPorId);
+userRoutes.put("/:id", autenticar, esAdmin, userController.actualizarUsuario);
+userRoutes.delete("/:id", autenticar, esAdmin, userController.eliminarUsuario);
 
 export default userRoutes;

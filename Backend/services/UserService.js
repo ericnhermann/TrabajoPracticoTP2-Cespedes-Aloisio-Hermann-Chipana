@@ -75,7 +75,9 @@ class UserService {
         if (!user) {
             throw new Error("Usuario no encontrado");
         }
-        if (user.password !== password) {
+
+        const passwordValida = await this.user.validatePassword(password, user.password);
+        if (!passwordValida) {
             throw new Error("Contraseña incorrecta");
         }
 
