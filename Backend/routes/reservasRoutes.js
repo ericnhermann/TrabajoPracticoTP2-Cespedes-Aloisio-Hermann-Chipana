@@ -14,9 +14,7 @@ reservasRouter.get("/:id", autenticar, (req, res) => {
   res.status(200).send("get reserva by id /");
 });
 
-reservasRouter.post("/", autenticar, (req, res) => {
-  res.status(200).send("create reserva /");
-});
+reservasRouter.post("/", autenticar, reservaController.crearReserva);
 
 reservasRouter.put("/:id", autenticar, (req, res) => {
   res.status(200).send("update reserva /");

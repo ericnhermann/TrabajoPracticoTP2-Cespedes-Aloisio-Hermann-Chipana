@@ -4,7 +4,17 @@ class ReservaService {
     }
 
 
-    //creamos el metodo para obtener la reserva mas cara 
+    crearReserva = async (fecha, hora, estado, precio, userId) => {
+        const nuevaReserva = await this.reserva.create({
+            fecha,
+            hora,
+            estado,
+            precio,
+            userId,
+        });
+        return nuevaReserva;
+    };
+
     reservaMasCara = async () => {
         const reserva = await this.reserva.findOne({
             order: [["precio", "DESC"]],

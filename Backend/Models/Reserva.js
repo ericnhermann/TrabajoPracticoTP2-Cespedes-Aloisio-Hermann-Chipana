@@ -20,8 +20,8 @@ Reserva.init(
         hora: {
             type: DataTypes.TIME,
             allowNull: false,
-            validate:{
-                isTime: true
+            validate: {
+                is: /^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/,
             },
         },
         estado: {
